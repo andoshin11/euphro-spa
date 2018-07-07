@@ -1,17 +1,19 @@
 import { IMuseum, INeighborsCriteria } from '@/entities/Museum'
 import MuseumRepository from '@/repositories/MuseumRepository'
+import LocationRepository from '@/repositories/LocationRepository'
 
 export interface IPresenter {
+  locationRepository: LocationRepository
   museumRepository: MuseumRepository
 }
 
 export interface IPresenterState {
   items: IMuseum[],
   count: number,
-  neighborParams: INeighborsCriteria
+  neighborParams: INeighborsCriteria,
 }
 
-export default ({ museumRepository }: IPresenter): IPresenterState => {
+export default ({ museumRepository, locationRepository }: IPresenter): IPresenterState => {
   const items = museumRepository.getItems()
   return {
     items,
@@ -19,7 +21,7 @@ export default ({ museumRepository }: IPresenter): IPresenterState => {
     neighborParams: {
       lat: 35.6628711,
       lng: 139.7313041,
-      distance: 50
+      distance: locationRepository.getDistance()
     }
   }
 }

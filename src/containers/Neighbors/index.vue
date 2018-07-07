@@ -1,15 +1,20 @@
 <template>
   <div class="Neighbors">
-    <div class="Neighbors__Title">
-      <span class="Neighbors__TitleText">
-        {{ presenter.count }}件のスポットがヒット！
-      </span>
+    <div class="Neighbors__Header">
+      <Location :distance="presenter.neighborParams.distance" :onDistanceChange="onDistanceChange"/>
     </div>
-    <div class="Neighbors__List">
-      <div v-for="item in presenter.items" class="Neighbors__ListItem" :key="item.id">
-        <MuseumMini :museum="item"/>
+    <div class="Neighbors__Body">
+      <div class="Neighbors__Title">
+        <span class="Neighbors__TitleText">
+          {{ presenter.count }}件のスポットがヒット！
+        </span>
       </div>
-    </div>
+      <div class="Neighbors__List">
+        <div v-for="item in presenter.items" class="Neighbors__ListItem" :key="item.id">
+          <MuseumMini :museum="item"/>
+        </div>
+      </div>
+      </div>
   </div>
 </template>
 
@@ -28,13 +33,19 @@ import DestroyContainerUseCase, {
 import { INeighborsCriteria } from "@/entities/Museum";
 import errorService from "@/services/ErrorService";
 import MuseumRepository from "@/repositories/MuseumRepository";
+import LocationRepository from "@/repositories/LocationRepository";
+import UpdateDistanceUseCase, {
+  IUpdateDistanceUseCase
+} from "@/usecases/UpdateDistanceUseCase";
 
 // Components
 import MuseumMini from "@/components/Modules/MuseumMini.vue";
+import Location from "@/components/Modules/Location.vue";
 
 export default Vue.extend({
   components: {
-    MuseumMini
+    MuseumMini,
+    Location
   },
   data() {
     return {};
@@ -42,19 +53,36 @@ export default Vue.extend({
   computed: {
     presenter(): IPresenterState {
       const params: IPresenter = {
+        locationRepository: new LocationRepository(),
         museumRepository: new MuseumRepository()
       };
       return Presenter(params);
     }
   },
-  async mounted() {
-    const params: ILoadContainerUseCase = {
-      museumRepository: new MuseumRepository(),
-      request: this.presenter.neighborParams,
-      errorService: new errorService({ context: "mounting museum list page" })
-    };
+  methods: {
+    async onDistanceChange(e: any) {
+      const distance = e.target.value as number;
+      const params: IUpdateDistanceUseCase = {
+        locationRepository: new LocationRepository(),
+        distance,
+        errorService: new errorService({ context: "updating distance" })
+      };
 
-    await new LoadContainerUseCase(params).execute();
+      await new UpdateDistanceUseCase(params).execute();
+      await this.loadContainer();
+    },
+    async loadContainer() {
+      const params: ILoadContainerUseCase = {
+        museumRepository: new MuseumRepository(),
+        request: this.presenter.neighborParams,
+        errorService: new errorService({ context: "loading museum list page" })
+      };
+
+      await new LoadContainerUseCase(params).execute();
+    }
+  },
+  async mounted() {
+    await this.loadContainer();
   },
   async destroyed() {
     const params: IDestroyContainerUseCase = {
@@ -67,7 +95,7 @@ export default Vue.extend({
 </script>
 
 <style>
-.Neighbors {
+.Neighbors__Body {
   padding: 40px 32px;
 }
 

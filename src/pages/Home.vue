@@ -3,9 +3,6 @@
     <div class="Home__Header">
       <HeaderContainer/>
     </div>
-    <div class="Home__Location">
-      <Location/>
-    </div>
     <div class="Home__Neighbors">
       <NeighborContainer/>
     </div>
@@ -16,13 +13,11 @@
 import Vue from "vue";
 import HeaderContainer from "@/containers/Header/index.vue";
 import NeighborContainer from "@/containers/Neighbors/index.vue";
-import Location from "@/components/Modules/Location.vue";
 
 export default Vue.extend({
   name: "home",
   components: {
     HeaderContainer,
-    Location,
     NeighborContainer
   }
 });
