@@ -4,6 +4,7 @@ export interface IMuseum {
   latitude: number;
   longitude: number;
   name: string;
+  img: string;
 }
 
 export interface INeighborsCriteria {
