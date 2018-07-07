@@ -27,4 +27,9 @@ body {
     }
   }
 }
+
+a {
+  color: #444448;
+  text-decoration: none;
+}
 </style>

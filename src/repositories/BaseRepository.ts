@@ -1,5 +1,5 @@
 type BaseRepository = {
-  fetchItem?: (id: number) => Promise<any>
+  fetchItem?: (id: number | string) => Promise<any>
   saveItem?: (params: any) => void
   clearItem?: () => void
   getItem?: () => any

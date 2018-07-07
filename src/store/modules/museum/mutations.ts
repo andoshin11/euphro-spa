@@ -8,8 +8,8 @@ export const mutations: MutationTree<MuseumState> = {
     state.item = item
   },
   [Types.CLEAR_ITEM]: (state) => {
-    const initial = initialState()
-    state.item = initial.item
+    const { item } = initialState()
+    state.item = item
   },
   [Types.STORE_ITEMS]: (state, action: StoreItems) => {
     const { items } = action.payload

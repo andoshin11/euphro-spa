@@ -1,5 +1,5 @@
 <template>
-  <a class="MuseumMini">
+  <a class="MuseumMini" :href="url">
     <div class="MuseumMini__Image">
       <img v-if="museum.img.length > 18" :src="museum.img" :alt="museum.name">
     </div>
@@ -17,6 +17,13 @@ export default Vue.extend({
     museum: {
       typs: Object as () => IMuseum,
       required: true
+    }
+  },
+  computed: {
+    url(): string {
+      const museum = this.museum as IMuseum;
+      const id = museum ? museum.id : "";
+      return `/#/museums/${id}`;
     }
   }
 });

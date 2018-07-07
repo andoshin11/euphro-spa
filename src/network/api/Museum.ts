@@ -20,4 +20,15 @@ export namespace MuseumAPI {
     parse = (data: AxiosResponse) => data.data
     constructor(public params: INeighborsCriteria) {}
   }
+
+  // Get specific data
+  export class GetById implements APIRequest<{item: IMuseum}> {
+    response: {item: IMuseum}
+    path: string;
+    method = HTTPMethod.GET
+    parse = (data: AxiosResponse) => data.data
+    constructor(id: string) {
+      this.path = `/museums/${id}`
+    }
+  }
 }

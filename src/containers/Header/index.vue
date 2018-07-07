@@ -3,7 +3,9 @@
     <div class="Header__Inner">
       <div class="Header__Left">
         <div class="Header__Logo">
-          Euphro(仮)
+          <a href="/#/">
+            Euphro
+          </a>
         </div>
       </div>
       <div class="Header__Right">
