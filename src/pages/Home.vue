@@ -3,17 +3,22 @@
     <div class="Home__Header">
       <HeaderContainer/>
     </div>
-    <img src="../assets/logo.png">
+    <div class="Home__Location">
+      <Location/>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
 import HeaderContainer from "@/containers/Header/index.vue";
+import Location from "@/components/Modules/Location.vue";
+
 export default Vue.extend({
   name: "home",
   components: {
-    HeaderContainer
+    HeaderContainer,
+    Location
   }
 });
 </script>
