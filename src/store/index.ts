@@ -12,6 +12,6 @@ export interface RootState {
 
 export default new Vuex.Store<RootState>({
   modules: {
-    product: museum.store
+    museum: museum.store
   }
 })
