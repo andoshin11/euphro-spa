@@ -11,7 +11,7 @@
           <span class="Location__Label">圏内のスポット</span>
         </div>
       </div>
-      <div class="Location__Right">
+      <div class="Location__Right" @click="onCurrentLocation">
         <i class="fas fa-map-marker-alt Location__Icon" />
       </div>
     </div>
@@ -46,6 +46,10 @@ export default Vue.extend({
       required: true
     },
     onDistanceChange: {
+      type: Function,
+      required: true
+    },
+    onCurrentLocation: {
       type: Function,
       required: true
     },

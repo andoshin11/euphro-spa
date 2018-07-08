@@ -1,5 +1,6 @@
 import { createClient } from '@google/maps'
 import {} from '@types/googlemaps'
+import { Position } from "@/entities/Position"
 
 export default class LocationEntity {
   constructor() {}
@@ -21,5 +22,11 @@ export default class LocationEntity {
       .map(address => address[1])[0]
 
     return location
+  }
+
+  async getCurrentLocation(options?: any): Promise<any> {
+    return new Promise(((resolve, reject) => {
+      navigator.geolocation.getCurrentPosition(resolve, reject, options)
+    }))
   }
 }

@@ -1,7 +1,7 @@
 <template>
   <div class="Neighbors">
     <div class="Neighbors__Header">
-      <Location :name="presenter.locationName" :distance="presenter.neighborParams.distance" :onDistanceChange="onDistanceChange"/>
+      <Location :name="presenter.locationName" :distance="presenter.neighborParams.distance" :onDistanceChange="onDistanceChange" :onCurrentLocation="onCurrentLocation"/>
     </div>
     <div class="Neighbors__Body">
       <div class="Neighbors__Title">
@@ -46,6 +46,9 @@ import UpdateDistanceUseCase, {
 import UpdateLocationUseCase, {
   IUpdateLocationUseCase
 } from "@/usecases/UpdateLocationUseCase";
+import GetCurrentLocationUseCase, {
+  IGetCurrentLocationUseCase
+} from "@/usecases/GetCurrentLocationUseCase";
 
 // Components
 import MuseumMini from "@/components/Modules/MuseumMini.vue";
@@ -99,6 +102,18 @@ export default Vue.extend({
       };
 
       await new UpdateLocationUseCase(params).execute();
+    },
+    async onCurrentLocation() {
+      if (!navigator.geolocation) {
+        alert("お使いの端末では位置情報を取得できません");
+      }
+      const params: IGetCurrentLocationUseCase = {
+        locationEntity: new LocationEntity(),
+        locationRepository: new LocationRepository(),
+        errorService: new errorService({ context: "changing location" })
+      };
+
+      await new GetCurrentLocationUseCase(params).execute();
     }
   },
   async mounted() {
