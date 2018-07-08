@@ -61,7 +61,7 @@ export default Vue.extend({
 
 .Header__Logo {
   font-weight: bold;
-  font-size: 16px;
+  font-size: 20px;
   margin-left: 16px;
 }
 
