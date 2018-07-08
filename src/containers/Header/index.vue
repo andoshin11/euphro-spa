@@ -11,7 +11,7 @@
       <div class="Header__Right">
         <div class="Header__Actions">
           <div class="Header__Button">
-            <Button text="About" :size="ButtonSize.Small" @click="$router.push('about')"/>
+            <Button text="About" :size="ButtonSize.Small" @click="$router.push({path: '/about'})"/>
           </div>
         </div>
       </div>
