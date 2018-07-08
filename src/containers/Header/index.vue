@@ -11,10 +11,7 @@
       <div class="Header__Right">
         <div class="Header__Actions">
           <div class="Header__Button">
-            <Button text="About" :type="ButtonType.Secondary" :size="ButtonSize.Small"/>
-          </div>
-          <div class="Header__Button">
-            <Button text="現在地から検索" :size="ButtonSize.Small"/>
+            <Button text="About" :size="ButtonSize.Small"/>
           </div>
         </div>
       </div>
@@ -65,6 +62,7 @@ export default Vue.extend({
 .Header__Logo {
   font-weight: bold;
   font-size: 16px;
+  margin-left: 16px;
 }
 
 .Header__Actions {

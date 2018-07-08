@@ -11,17 +11,20 @@ export interface IPresenterState {
   items: IMuseum[],
   count: number,
   neighborParams: INeighborsCriteria,
+  locationName: string
 }
 
 export default ({ museumRepository, locationRepository }: IPresenter): IPresenterState => {
   const items = museumRepository.getItems()
+  const { lat, lng, locationName, distance } = locationRepository.getLocation()
   return {
     items,
     count: items ? items.length : 0,
     neighborParams: {
-      lat: 35.6628711,
-      lng: 139.7313041,
-      distance: locationRepository.getDistance()
-    }
+      lat,
+      lng,
+      distance
+    },
+    locationName
   }
 }

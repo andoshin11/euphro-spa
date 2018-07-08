@@ -3,7 +3,7 @@
     <div class="Location__Top">
       <div class="Location__Left">
         <div class="Location__Area">
-          東京都 世田谷区
+          {{ name }}
           <span class="Location__Label">から</span>
         </div>
         <div class="Location__Distance">
@@ -48,6 +48,10 @@ export default Vue.extend({
     onDistanceChange: {
       type: Function,
       required: true
+    },
+    name: {
+      type: String,
+      required: true
     }
   }
 });
@@ -79,6 +83,8 @@ export default Vue.extend({
   flex: 3;
   flex-direction: column;
   align-items: flex-start;
+  max-width: 70%;
+  overflow: hidden;
 }
 
 .Location__Right {
@@ -97,6 +103,11 @@ export default Vue.extend({
 .Location__Area {
   font-size: 24px;
   font-weight: bold;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: left;
+  max-width: 100%;
 }
 
 .Location__Distance {

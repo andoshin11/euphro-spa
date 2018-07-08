@@ -1,6 +1,6 @@
 // import BaseRepository from '@/repositories/BaseRepository'
 import store from '@/store'
-import { StoreDistance } from '@/store/modules/location/types'
+import { StoreDistance, StoreLocation } from '@/store/modules/location/types'
 
 export default class LocationRepository {
 
@@ -10,7 +10,11 @@ export default class LocationRepository {
     store.commit(new StoreDistance(distance))
   }
 
-  getDistance() {
-    return store.state.location.distance
+  saveLocation(params: { lat: number, lng: number, locationName: string }) {
+    store.commit(new StoreLocation(params))
+  }
+
+  getLocation() {
+    return store.state.location
   }
 }

@@ -1,12 +1,17 @@
 <template>
   <div class="Neighbors">
     <div class="Neighbors__Header">
-      <Location :distance="presenter.neighborParams.distance" :onDistanceChange="onDistanceChange"/>
+      <Location :name="presenter.locationName" :distance="presenter.neighborParams.distance" :onDistanceChange="onDistanceChange"/>
     </div>
     <div class="Neighbors__Body">
       <div class="Neighbors__Title">
         <span class="Neighbors__TitleText">
-          {{ presenter.count }}件のスポットがヒット！
+          <template v-if="presenter.count > 0">
+            {{ presenter.count }}件のスポットがヒット！
+          </template>
+          <template v-else>
+            スポットが見つからないようです...
+          </template>
         </span>
       </div>
       <div class="Neighbors__List">
@@ -33,10 +38,14 @@ import DestroyContainerUseCase, {
 import { INeighborsCriteria } from "@/entities/Museum";
 import errorService from "@/services/ErrorService";
 import MuseumRepository from "@/repositories/MuseumRepository";
+import LocationEntity from "@/entities/Location";
 import LocationRepository from "@/repositories/LocationRepository";
 import UpdateDistanceUseCase, {
   IUpdateDistanceUseCase
 } from "@/usecases/UpdateDistanceUseCase";
+import UpdateLocationUseCase, {
+  IUpdateLocationUseCase
+} from "@/usecases/UpdateLocationUseCase";
 
 // Components
 import MuseumMini from "@/components/Modules/MuseumMini.vue";
@@ -79,10 +88,22 @@ export default Vue.extend({
       };
 
       await new LoadContainerUseCase(params).execute();
+    },
+    async onLocationChange() {
+      const params: IUpdateLocationUseCase = {
+        lat: 35.6628711,
+        lng: 139.7313041,
+        locationEntity: new LocationEntity(),
+        locationRepository: new LocationRepository(),
+        errorService: new errorService({ context: "changing location" })
+      };
+
+      await new UpdateLocationUseCase(params).execute();
     }
   },
   async mounted() {
     await this.loadContainer();
+    await this.onLocationChange();
   },
   async destroyed() {
     const params: IDestroyContainerUseCase = {
