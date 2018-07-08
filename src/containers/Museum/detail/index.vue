@@ -11,6 +11,10 @@
           {{ presenter.item.address }}
         </div>
       </div>
+      <div class="MuseumDetail__Info">
+        <div class="MuseuDetail__Entry">{{ presenter.item.entry }}</div>
+        <a class="MuseumDetail__Link" target="_blank" :href="presenter.item.url">{{ presenter.item.url }}</a>
+      </div>
     </template>
   </div>
 </template>
@@ -77,6 +81,8 @@ export default Vue.extend({
   flex-direction: column;
   align-items: center;
   padding-top: 48px;
+  min-height: 100vh;
+  background-color: #eef3f8;
 }
 
 .MuseumDetail__Header {
@@ -102,6 +108,7 @@ export default Vue.extend({
   box-sizing: border-box;
   border-radius: 8px;
   transform: translateY(-50%);
+  margin-bottom: -20px;
 }
 
 .MuseumDetail__Name {
@@ -113,5 +120,19 @@ export default Vue.extend({
   font-size: 16px;
   text-decoration: underline;
   color: #848488;
+}
+
+.MuseumDetail__Info {
+  background-color: #fff;
+  padding: 20px;
+}
+
+.MuseumDetail__Link {
+  line-height: 3;
+  font-size: 14px;
+  text-decoration: underline;
+  font-style: italic;
+  color: #189ac5;
+  transition: 0.3s;
 }
 </style>

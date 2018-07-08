@@ -5,6 +5,8 @@ export interface IMuseum {
   longitude: number;
   name: string;
   img: string;
+  entry: string;
+  url: string;
 }
 
 export interface INeighborsCriteria {
